@@ -1,3 +1,14 @@
+let playerScore = 0
+let computerScore = 0
+let Draw = 0
+
+let playerWinRound = "Player wins this round!"
+let computerWinRound = "Computer wins this round!"
+let draw = "Draw!"
+let playerWin = "Player wins the game! Congratulations!"
+let computerWin = "Computer wins the game! Congratulations!"
+
+
 function getComputerChoice () {
     let  randomNumber = Math.floor(Math.random() * 4)
     if (randomNumber == 1) {
@@ -14,21 +25,66 @@ function getComputerChoice () {
 
 console.log(getComputerChoice())
 
+
+
 function playRound(_playerSelection, computerSelection) {
     
-     if (computerSelection == "scissors") {
-    return "You Win! You're the best"
+    if (computerSelection === _playerSelection) {
+        return draw ;
+    }
+    
+    else if (computerSelection === "scissors" && _playerSelection === "rock") {
+    return playerWinRound ;
 }
-    else if (computerSelection == "paper") {
-    return "Haha you lose!"
+    else if (computerSelection === "paper" && _playerSelection === "rock") {
+    return computerWinRound ;
 }
-    else (computerSelection == "rock") 
-    return "damn it do be drawin doe"
-
+    else if (computerSelection === "scissors" && _playerSelection === "paper") {
+    return  computerWinRound ;
+}
+    else {
+        return playerWinRound ;
+    }
 
 }
     
-let playerSelection = "rock" ;
-let computerSelection = getComputerChoice() ;
 
-console.log(playRound(playerSelection, computerSelection))
+
+    for (let i = 0; i < 1000; i++) {
+        let playerSelection = prompt("Rock, Paper, Scissors, Your pick.").toLowerCase() ;
+        let computerSelection = getComputerChoice() ;
+        let roundResult = playRound(playerSelection, computerSelection);
+        console.log(roundResult);
+        gameScore(roundResult);
+        console.log("Your Score is " + playerScore);
+        console.log("The Computer Score is " + computerScore);
+
+        if (playerScore === 5 || computerScore === 5) {
+            break;
+        }
+
+    }
+    
+   
+
+
+function gameScore(result) {
+    
+
+    if (result === playerWinRound) {
+        playerScore++;
+    }   else if (result === draw) {
+        Draw++;
+    }   else {
+        computerScore++;
+    }
+
+    if (playerScore === 5 ) {
+        console.log(playerWin);
+        return;
+    } 
+    if (computerScore === 5 ) {
+        console.log(computerWin);
+        return;
+    }
+}
